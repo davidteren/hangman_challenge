@@ -46,7 +46,5 @@ games.each do |game|
 
   guesses.each do |guess|
     play.check_letter?(guess)
-
   end
-
 end
