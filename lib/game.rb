@@ -18,7 +18,7 @@ class Game
     return win_msg if word.eql?(guesses.correct)
     return loose_msg if lives.remaining.zero?
     str = correct_msg
-    str << " incorrect guesses: " + guesses.incorrect unless guesses.incorrect.empty?
+    str << incorrect_msg unless guesses.incorrect.empty?
     str
   end
 
@@ -29,8 +29,12 @@ class Game
     str
   end
 
+  def incorrect_msg
+    " incorrect guesses: " + guesses.incorrect
+  end
+
   def win_msg
-    word + " You win!".upcase
+    guesses.correct + " You win!".upcase
   end
 
   def loose_msg
