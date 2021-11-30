@@ -18,12 +18,12 @@ class Guesses
     end
   end
 
-  def correct?
+  def match_word?
     correct == word
   end
 
-  def none?
-    incorrect.empty?
+  def exist?
+    !incorrect.empty?
   end
 
   private

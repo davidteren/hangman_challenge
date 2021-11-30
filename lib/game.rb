@@ -15,10 +15,10 @@ class Game
   end
 
   def output
-    return win_msg if guesses.correct?
-    return loose_msg unless lives.remaining?
+    return win_msg if guesses.match_word?
+    return loose_msg if lives.depleted?
     str = correct_msg
-    str << incorrect_msg unless guesses.none?
+    str << incorrect_msg if guesses.exist?
     str
   end
 
@@ -27,6 +27,7 @@ class Game
   def correct_msg
     str = ""
     str << guesses.correct
+
     str << " life left: " + lives.remaining.to_s
     str
   end

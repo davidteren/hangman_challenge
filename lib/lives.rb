@@ -11,7 +11,7 @@ class Lives
     @remaining -= 1
   end
 
-  def remaining?
-    !@remaining.zero?
+  def depleted?
+    @remaining.zero?
   end
 end
