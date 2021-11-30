@@ -22,7 +22,7 @@ class Guesses
     correct == word
   end
 
-  def any?
+  def none?
     incorrect.empty?
   end
 

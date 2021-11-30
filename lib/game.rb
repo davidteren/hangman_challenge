@@ -18,7 +18,7 @@ class Game
     return win_msg if guesses.correct?
     return loose_msg unless lives.remaining?
     str = correct_msg
-    str << incorrect_msg unless guesses.any?
+    str << incorrect_msg unless guesses.none?
     str
   end
 
