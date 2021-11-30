@@ -1,12 +1,5 @@
 #!/usr/bin/ruby
 # frozen_string_literal: true
-
-# The above can be replaced with whatever language you choose
-
-# Modify this file to create your hangman program.
-#
-# The input filename will come as an argument (see completeness_test).
-
 require_relative "lib/game"
 
 module Hangman
