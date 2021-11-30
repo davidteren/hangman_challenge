@@ -6,29 +6,47 @@
 # Modify this file to create your hangman program.
 #
 # The input filename will come as an argument (see completeness_test).
-input_filename = ARGV[0]
-
-def stdout_and_exit
-  puts "ERROR: Expected input.txt file!\n\n"
-  puts "Usage:\t./hangman input.txt\n\n"
-  exit(1)
-end
-
-stdout_and_exit if input_filename.nil?
 
 require_relative "lib/game"
 
-file_content = File.read(input_filename)
-games = file_content.split("\n\n")
-games.each do |game|
-  guesses = game.split("\n")
-  word = guesses.shift
+module Hangman
+  module_function
 
-  game = Game.new(word: word)
-  puts game.output
-
-  guesses.each do |guess|
-    game.play(guess: guess)
-    puts game.output
+  def run(input_filename)
+    read_games(input_filename).each(&method(:play_game))
   end
+
+  def play_game(game)
+    guesses = game.split("\n")
+    word = guesses.shift
+    game = Game.new(guesses: Guesses.new(word: word))
+
+    puts game.output
+
+    guesses.each do |guess|
+      game.play(guess: guess)
+      puts game.output
+    end
+  end
+
+  def read_games(input_filename)
+    file_content = File.read(input_filename)
+    file_content.split("\n\n")
+  end
+
+  def stdout_and_exit
+    puts "ERROR: Expected input.txt file!\n\n"
+    puts "Usage:\t./hangman input.txt\n\n"
+    exit(1)
+  end
+end
+
+if $PROGRAM_NAME == __FILE__
+  input_filename = ARGV.first
+
+  if input_filename.nil?
+    Hangman.stdout_and_exit
+  end
+
+  Hangman.run(input_filename)
 end

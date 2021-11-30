@@ -2,12 +2,12 @@ require_relative "guesses"
 require_relative "lives"
 
 class Game
-  attr_accessor :word, :guesses, :lives
+  attr_reader :word
+  attr_accessor :guesses, :lives
 
-  def initialize(word:)
-    @word = word
-    @guesses = Guesses.new(word: word)
-    @lives = Lives.new
+  def initialize(guesses:, lives: Lives.new)
+    @guesses = guesses
+    @lives = lives
   end
 
   def play(guess:)
@@ -15,16 +15,18 @@ class Game
   end
 
   def output
-    return win_msg if word.eql?(guesses.correct)
-    return loose_msg if lives.remaining.zero?
+    return win_msg if guesses.correct?
+    return loose_msg unless lives.remaining?
     str = correct_msg
-    str << incorrect_msg unless guesses.incorrect.empty?
+    str << incorrect_msg unless guesses.any?
     str
   end
 
+  private
+
   def correct_msg
     str = ""
-    str << @guesses.correct
+    str << guesses.correct
     str << " life left: " + lives.remaining.to_s
     str
   end
@@ -34,10 +36,10 @@ class Game
   end
 
   def win_msg
-    guesses.correct + " You win!".upcase
+    guesses.correct + " YOU WIN!"
   end
 
   def loose_msg
-    guesses.correct + " You lose!".upcase
+    guesses.correct + " YOU LOSE!"
   end
 end

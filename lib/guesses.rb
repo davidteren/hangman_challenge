@@ -10,7 +10,7 @@ class Guesses
 
   def check?(guess)
     if word.include?(guess)
-      set_correct(guess)
+      update_correct(guess)
       true
     else
       @incorrect += guess
@@ -18,7 +18,17 @@ class Guesses
     end
   end
 
-  def set_correct(guess)
+  def correct?
+    correct == word
+  end
+
+  def any?
+    incorrect.empty?
+  end
+
+  private
+
+  def update_correct(guess)
     correct.chars.each_with_index do |letter, index|
       if letter == "_" && word[index] == guess
         correct[index] = guess

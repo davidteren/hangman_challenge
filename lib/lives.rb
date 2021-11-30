@@ -10,4 +10,8 @@ class Lives
   def deduct_life
     @remaining -= 1
   end
+
+  def remaining?
+    !@remaining.zero?
+  end
 end
