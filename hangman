@@ -8,43 +8,27 @@
 # The input filename will come as an argument (see completeness_test).
 input_filename = ARGV[0]
 
-# load file via fileloader
-
-# Store the word to be guessed
-
-# Set life_left to 6
-# Set word to guess spaces ______ = correct_guesses  - array with display function that joins
-# build_msg -> correct_guesses + life_left_msg + life_left
-# STDOUT build_msg
-#
-# Iterate over the guesses
-#   # if wrong
-#     # life_left - 1
-#     # add wrong guesses to list_of_wrong_guesses
-#     # build_msg -> correct_guesses + msg + life_left + incorrect_guesses_msg + list_of_wrong_guesses
-#
-#   # if correct
-#     # update correct_guesses
-#     # build_msg -> correct_guesses + msg + life_left + incorrect_guesses_msg + list_of_wrong_guesses
-
-if input_filename.nil?
+def stdout_and_exit
   puts "ERROR: Expected input.txt file!\n\n"
-  puts "Usage:\t./hangman text.txt\n\n"
+  puts "Usage:\t./hangman input.txt\n\n"
   exit(1)
 end
+
+stdout_and_exit if input_filename.nil?
+
+require_relative "lib/game"
 
 file_content = File.read(input_filename)
 games = file_content.split("\n\n")
 games.each do |game|
   guesses = game.split("\n")
   word = guesses.shift
-  guesses
 
-  player = Player.new
-
-  play = WordEvaluator.new(word: word)
+  game = Game.new(word: word)
+  game.output
 
   guesses.each do |guess|
-    play.check_letter?(guess)
+    game.play(guess: guess)
+    game.output
   end
 end
