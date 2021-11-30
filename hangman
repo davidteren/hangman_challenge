@@ -25,10 +25,10 @@ games.each do |game|
   word = guesses.shift
 
   game = Game.new(word: word)
-  game.output
+  puts game.output
 
   guesses.each do |guess|
     game.play(guess: guess)
-    game.output
+    puts game.output
   end
 end
