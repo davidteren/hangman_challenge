@@ -27,9 +27,7 @@ class Game
   def correct_msg
     str = ""
     str << guesses.correct
-
     str << " life left: " + lives.remaining.to_s
-    str
   end
 
   def incorrect_msg
